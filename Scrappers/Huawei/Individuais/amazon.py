@@ -270,7 +270,7 @@ def amazon_final():
 
 
     #Exportando o arquivo
-    Dataset_amazon.to_excel('downloads/amazon.xlsx', index=False)
+    Dataset_amazon.to_excel('C:/Users/pedro/Documents/FIVE-C/Aplicativo_tkinter/Scrappers/Huawei/Downloads/amazon.xlsx', index=False)
 
 
 

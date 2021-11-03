@@ -122,14 +122,6 @@ def search_urls():
     bota_marketplaces_urls = tk.Button(new_window, text='Urls faltanttes Marketplaces')
     bota_marketplaces_urls.grid(row = 2, column= 1, padx=10, pady=10, sticky='W')
 
-    #Cópia WebPrice
-    bota_marketplaces_urls = tk.Button(new_window, text='Cópia WebPrice')
-    bota_marketplaces_urls.grid(row = 1, column= 3, padx=10, pady=10, sticky='W')
-
-    #Cópia WebPrice
-    bota_marketplaces_urls = tk.Button(new_window, text='Cópia Lett')
-    bota_marketplaces_urls.grid(row = 2, column= 3, padx=10, pady=10, sticky='W')
-
 ### --------------------------------- DATABASE  ----------------------------------------- ###
 
 #Página principal para ver as opções dos databases
@@ -393,7 +385,7 @@ def database_insert_new_data_motorola():
 def huawei_page():
     new_window = tk.Tk()
     new_window.title("HUAWEI")
-    new_window.geometry('210x300')
+    new_window.geometry('250x300')
 
     #Colocando a barra da marca 
     Text = tk.Label(new_window, text="Coloque os marketplaces:")
