@@ -342,7 +342,7 @@ def final_fuction_ML():
     print("--- Pegando os dados e conectando com o banco de dados ----")
 
     #Criando o database 
-    conn = sqlite3.connect('C:/Users/pedro/Documents/FIVE-C/Aplicativo_tkinter/Scrappers/Brands/Urls_faltantes/Dados/database.db')
+    conn = sqlite3.connect('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Brands/Urls_faltantes/Dados/database.db')
 
     #Criando o cursor
     c = conn.cursor()
@@ -398,8 +398,8 @@ def final_fuction_ML():
         c.execute("INSERT INTO Urls(Links) VALUES('{}')".format(row))
 
     #Exportando o dataset 
-    dataset.to_excel('./Dados/Urls/urls.xlsx', index=False)
-    dataset_cadastrar.to_excel('./Dados/Urls/cadastrar.xlsx', index=False)
+    dataset.to_excel('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Brands/Urls_faltantes/Dados/urls.xlsx', index=False)
+    dataset_cadastrar.to_excel('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Brands/Urls_faltantes/Dados/cadastrar.xlsx', index=False)
 
     print("---- Os dados estão dentro da pasta de E-mail ----")
 

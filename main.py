@@ -83,27 +83,27 @@ def send_email(brand,date):
     data_filtrada['Action'] = data_filtrada['Action'].str.replace('Send Extrajudicial','Extrajudicial')
         
     #Exportando o dataset para excel para enviar e-mail 
-    data_filtrada.to_excel('./Dados/E-mail/motorola_monitoramento.xlsx', index=False)
+    data_filtrada.to_excel('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Dados/E-mail/motorola_monitoramento.xlsx', index=False)
 
     #Logando no servidor do e-mail e mandando o e-mail para os contatos
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
 
-    server.login('brandprotection.02@fivec.com.br', 'Five@316712')
+    server.login('brandprotection01@fivec.com.br', 'Gpro0192*')
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = 'Motorola Monitoramento - {}'.format(datetime.date.today())
-    msg['From'] = 'brandprotection.02@fivec.com.br'
+    msg['From'] = 'brandprotection01@fivec.com.br'
     msg['body'] = 'Linha 1 \n Linha 2 \n Linha 3'
     recipients = ['brandprotection.02@fivec.com.br','brandprotection01@fivec.com.br']
     msg['To'] = ", ".join(recipients)
 
     part1 = MIMEBase('application','octet-stream')
-    part1.set_payload(open('./Dados/E-mail/motorola_monitoramento.xlsx','rb').read())
+    part1.set_payload(open('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Dados/E-mail/motorola_monitoramento.xlsx','rb').read())
     encoders.encode_base64(part1)
     part1.add_header('Content-Disposition','attachment;filename="Motorola_monitoramento.xlsx"')
 
     msg.attach(part1)
-    server.sendmail('brandprotection.02@fivec.com.br', recipients, msg.as_string())
+    server.sendmail('brandprotection01@fivec.com.br', recipients, msg.as_string())
 
 ### ------------------------------ BUSCA DE URLS  --------------------------------------- ###
 
@@ -169,7 +169,7 @@ def database_insert_new_data_gopro():
     print("---- Pegando os dados do Daily e conectando com o banco de dados ----")
 
     #Criando o databse 
-    database = sqlite3.connect("G:/.shortcut-targets-by-id/1VAK5JIWTmtamcYtBHQGeL7FVwcki0pRp/BRAND PROTECTION/Database/Data/Gopro.db")
+    database = sqlite3.connect("C:/Users/kcava/Google Drive/BRAND PROTECTION/Database/Data/Gopro.db")
 
     #Criando o cursor 
     c = database.cursor()
@@ -285,7 +285,7 @@ def database_insert_new_data_motorola():
     print("---- Pegando os dados do Daily e conectando com o banco de dados ----")
 
     #Criando o databse 
-    database = sqlite3.connect("G:/.shortcut-targets-by-id/1VAK5JIWTmtamcYtBHQGeL7FVwcki0pRp/BRAND PROTECTION/Database/Data/Gopro.db")
+    database = sqlite3.connect("C:/Users/kcava/Google Drive/BRAND PROTECTION/Database/Data/Gopro.db")
 
     #Criando o cursor 
     c = database.cursor()

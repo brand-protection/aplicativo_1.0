@@ -18,7 +18,7 @@ options.add_argument('--log-level=3')
 options.add_argument('--disable-gpu')
 
 #Configurando o driver 
-driver = webdriver.Chrome(executable_path=r'C:\Users\pedro\Documents\FIVE-C\Aplicativo\project\Dados\Selenium\chromedriver_95.exe',options=options)
+driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_95.exe',options=options)
 
 ######################################### MOTOROLA ###############################################
 

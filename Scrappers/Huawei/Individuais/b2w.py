@@ -13,7 +13,7 @@ from tqdm import tqdm
 from urllib.request import HTTPRedirectHandler, urlopen
 import json as JSON
 
-header_americanas = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36 OPR/75.0.3969.218'}
+header_americanas = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'}
 
 ## AMERICANAS ## 
 Urls_americanas = [] 
@@ -152,20 +152,10 @@ def search_atributes(url):
 
 #Função final 
 def bw2_final():
-    #Criando a variável da página 
-    pagina = 0 
 
-    #Fazendo o while das urls 
-    while pagina <= 24:
-
-        #Criando a url 
-        url_base = 'asdasdsd{}'.format(pagina)
-
+    for url in tqdm(urls_products):    
         #Fazendo a função 
-        search_links(url_base)
-
-        #Acrescentando a página 
-        pagina = pagina + 24 
+        search_links(url)
 
     #Criando o DataFrame
     Dataset = pd.DataFrame()
@@ -193,7 +183,7 @@ def bw2_final():
     Dataset['Preço_parcelado'] = PP_americanas + PP_ofertas_americanas
 
     #Exportando o dataset 
-    Dataset.to_excel("downloads/b2w_urls.xlsx", index=False)
+    Dataset.to_excel("C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Huawei/Downloads/b2w_urls.xlsx", index=False)
     
     
 

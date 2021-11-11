@@ -13,7 +13,7 @@ from tqdm import tqdm
 from urllib.request import urlopen
 import json as JSON
 
-header_magazine = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'}
+header_magazine = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'}
 
 
 ## MAGAZINE LUIZA ##
@@ -71,7 +71,7 @@ def search_attributes(url):
     time.sleep(100)
 
     #Fazendo o requests 
-    driver = webdriver.Chrome(executable_path=r'C:\Users\pedro\Documents\FIVE-C\Aplicativo\project\Dados\Selenium\chromedriver_94.exe')
+    driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_94.exe')
     
     #Abrimdo a página 
     driver.get(url)
@@ -140,7 +140,7 @@ def magazine_final():
     Dataset_magalu['Sellers'] = Dataset_magalu['Sellers'].str.replace(" ","",1)
 
     #Exportando os dados 
-    Dataset_magalu.to_excel("downloads/magazine_urls.xlsx", index=False)
+    Dataset_magalu.to_excel("C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Huawei/Downloads/magazine_urls.xlsx", index=False)
 
 
 

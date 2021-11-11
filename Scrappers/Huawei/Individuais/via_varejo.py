@@ -40,7 +40,7 @@ def extra_search_urls(url):
     global extra_urls
 
     #Inicializando webdriver 
-    driver = webdriver.Chrome(executable_path=r'C:\Users\pedro\Documents\FIVE-C\Aplicativo\project\Dados\Selenium\chromedriver_95.exe')
+    driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_95.exe')
 
     #Inicializando o driver na página 
     driver.get(url)
@@ -61,7 +61,7 @@ def extra_search_urls(url):
 
 def extra_search_attributes(url):
     #Criando o webdriver 
-    driver = webdriver.Chrome(executable_path=r'C:\Users\pedro\Documents\FIVE-C\Aplicativo\project\Dados\Selenium\chromedriver_94.exe')
+    driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_94.exe')
     driver.get(url)
 
     #Tempo 
@@ -138,7 +138,7 @@ def final_via_varejo():
     #dataset_extra['Item'] = dataset_extra['Urls'].apply(limpeza)
 
     #Exportando 
-    dataset_extra.to_excel(r"C:\Users\pedro\Documents\FIVE-C\Huawei\downloads\extra.xlsx", index=False)
+    dataset_extra.to_excel(r"C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Scrappers\Huawei\Downloads\extra.xlsx", index=False)
 
 
 

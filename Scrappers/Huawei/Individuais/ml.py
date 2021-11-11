@@ -213,7 +213,7 @@ def ml_final():
     dataset = dataset[dataset['Preço'] > 200]  
 
     #Exportando o dataset 
-    dataset.to_excel('C:/Users/pedro/Documents/FIVE-C/Huawei/downloads/Mercado_livre_urls.xlsx', index=False)
+    dataset.to_excel('C:/Usersvkcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Huawei/Downloads/Mercado_livre_urls.xlsx', index=False)
 
     
 
