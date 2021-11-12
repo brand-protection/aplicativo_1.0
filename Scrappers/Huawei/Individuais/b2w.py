@@ -26,6 +26,7 @@ Price_ofertas_americanas = []
 Urls_ofertas_americanas = []
 Title_ofertas_americanas = []
 PP_ofertas_americanas = []
+internacional_list = []
 
 
 ##Pegando as urls específicas de cada produto
@@ -118,6 +119,13 @@ def search_atributes(url):
     except:
         PP_americanas.append('Erro')
 
+    #Vendo se a compra é internacional ou não 
+    try:
+        internacional = soup.find(class_='international-message__Link-sc-1nfxfiv-1 gWjWQL')
+        internacional_list.append("Internacional")
+    except:
+        internacional_list.append("Nacional")
+
     try:
         #Vendo se tem o texto de mais ofertas 
         soup.find(class_='more-offers__Text-sc-15yqej3-0 bourXY').text
@@ -181,6 +189,7 @@ def bw2_final():
     Dataset['Preço'] = Price_americanas + Price_ofertas_americanas
     Dataset["Título"] = Title_americanas + Title_ofertas_americanas
     Dataset['Preço_parcelado'] = PP_americanas + PP_ofertas_americanas
+    Dataset['Internacional'] = internacional_list
 
     #Exportando o dataset 
     Dataset.to_excel("C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Huawei/Downloads/b2w_urls.xlsx", index=False)

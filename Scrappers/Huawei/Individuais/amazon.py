@@ -34,6 +34,7 @@ Amazon_installment_price_full = []
 Amazon_seller_more = []
 Amazon_price_more = []
 Amazon_title_more = []
+internacional_list = []
 
 urls_dos_produtos = ['https://www.amazon.com.br/s?k=huawei+band+6&i=electronics&rh=n%3A16209062011%2Cp_89%3AHUAWEI%2Cp_n_condition-type%3A13862762011&dc&qid=1633627909&rnid=13862761011&ref=sr_nr_p_n_condition-type_1',
                      'https://www.amazon.com.br/s?k=huawei+watch+gt2+sport&i=electronics&rh=n%3A16209062011%2Cp_89%3AHUAWEI%2Cp_n_condition-type%3A13862762011&dc&__mk_pt_BR=ÅMÅŽÕÑ&qid=1633627989&rnid=13862761011&ref=sr_nr_p_n_condition-type_1',
@@ -172,6 +173,13 @@ def search_attributes(url):
     except:
         Amazon_installment_price_full.append("0")
 
+    #Fazendo o try para pegar se a compra é internacional ou não 
+    try:
+        internacional = soup.find("a", {'href':'/gp/help/customer/display.html/ref=olp_intl_help?ie=UTF8&nodeId=201910420'})
+        internacional_list.append("Internacional")
+    except:
+        internacional_list.append("Nacional")
+
     #Fazendo o try para ver se tem mais ofertas 
     try:
         soup.find(class_='olp-text-box').text
@@ -244,6 +252,7 @@ def amazon_final():
     Dataset_amazon['ASIN'] = Dataset_amazon['Urls'].str.partition('/dp/')[2].str.partition('/')[0]
     Dataset_amazon['Título'] = Amazon_title + Amazon_title_more
     Dataset_amazon["Installment"] = Amazon_installment_price_full
+    Dataset_amazon['Internacional'] = internacional_list
 
     Dataset_amazon = Dataset_amazon.drop_duplicates()
 

@@ -45,7 +45,7 @@ def search_links(url):
     time.sleep(100)
 
     #Fazendo o requests 
-    driver = webdriver.Chrome(executable_path=r'C:\Users\pedro\Documents\FIVE-C\Aplicativo\project\Dados\Selenium\chromedriver_94.exe')
+    driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_94.exe')
     
     #Abrimdo a página 
     driver.get(url)
