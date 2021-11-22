@@ -1,4 +1,5 @@
 #Importando as bibliotecas 
+import os
 import pandas as pd 
 import requests 
 import time
@@ -14,6 +15,15 @@ from urllib.request import urlopen
 import json as JSON
 from tqdm import tqdm
 
+#Pegando a variável 
+path_direct = os.getcwd()
+
+selenium_95 = path_direct + "\Dados\Selenium\chromedriver_95.exe"
+selenium_95 = selenium_95.replace('\\','/')
+
+
+path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\Amazon.xlsx"
+path_download_urls_huawei = path_download_urls_huawei.replace('\\','/')
 
 #Congiruando o driver 
 options = Options()
@@ -22,7 +32,7 @@ options.add_argument('--log-level=3')
 options.add_argument('--disable-gpu')
 
 #Configurando o driver 
-driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_95.exe',options=options)
+driver = webdriver.Chrome(executable_path=selenium_95,options=options)
 
 #Criando as listas 
 Urls_amazon = []
@@ -87,7 +97,6 @@ def categorizao(a):
         return 'Huawei WS7200'
     elif 'quad-core' in a:
         return 'Huawei WS7200'
-
 
 def search_urls():
 
@@ -154,7 +163,8 @@ def search_attributes(url):
 
     #Fazendo o try do preço do produto a vista 
     try:
-        price = soup.find(id="price_inside_buybox").text
+        price_tag = soup.find(class_='a-price a-text-price a-size-medium')
+        price = price_tag.find(class_='a-offscreen').text
         Amazon_price.append(price)
     except:
         Amazon_price.append("Erro")    
@@ -279,7 +289,7 @@ def amazon_final():
 
 
     #Exportando o arquivo
-    Dataset_amazon.to_excel('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Huawei/Downloads/amazon.xlsx', index=False)
+    Dataset_amazon.to_excel(path_download_urls_huawei, index=False)
 
 
 

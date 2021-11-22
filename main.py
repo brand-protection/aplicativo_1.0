@@ -1,4 +1,5 @@
 #Importando as bibliotecas padrão 
+import os
 import tkinter as tk
 import sqlite3
 from tkinter.constants import W
@@ -11,10 +12,22 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
+import selenium
 from tqdm import tqdm
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
+
+# --------------------------------- VARIAVEIS ---------------------------------- #
+path_direct = os.getcwd()
+
+selenium_94 = path_direct + "\Dados\Selenium\chromedriver_94.exe"
+selenium_94 = selenium_94.replace('\\','/')
+
+selenium_91 = path_direct + "\Dados\Selenium\chromedriver_91.exe"
+selenium_91 = selenium_91.replace('\\','/')
+
+path_download_urls_huawei = path_direct + "\Huaweu\Downloads"
 
 #Importando função do arquivo de função final do Mercado Livre
 from Scrappers.Brands.Urls_faltantes.Urls_Mercado_livre import final_fuction_ML
@@ -420,10 +433,11 @@ def huawei_page():
 #Função que vai determinar a seleção dos marketplaces
 def huawei_choice(marketplace):
     if marketplace == '1':
-        try:
-            amazon_final()
-        except:
-            amazon_final()
+        amazon_final()
+        #try:
+            #amazon_final()
+        #except:
+            #amazon_final()
     elif marketplace == '2':
         try:
             bw2_final()

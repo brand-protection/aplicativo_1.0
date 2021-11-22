@@ -1,4 +1,5 @@
 #Importando as bibliotecas 
+import os
 import pandas as pd 
 import requests 
 import time
@@ -15,6 +16,14 @@ import json as JSON
 
 header_magazine = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'}
 
+#Pegando a variável
+path_direct = os.getcwd()
+
+selenium_94 = path_direct + "\Dados\Selenium\chromedriver_94.exe"
+selenium_94 = selenium_94.replace('\\','/')
+
+path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\Magazine_luiza.xlsx"
+path_download_urls_huawei = path_download_urls_huawei.replace('\\','/')
 
 ## MAGAZINE LUIZA ##
 magazine_urls = []
@@ -45,7 +54,7 @@ def search_links(url):
     time.sleep(100)
 
     #Fazendo o requests 
-    driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_94.exe')
+    driver = webdriver.Chrome(executable_path=selenium_94)
     
     #Abrimdo a página 
     driver.get(url)
@@ -140,7 +149,7 @@ def magazine_final():
     Dataset_magalu['Sellers'] = Dataset_magalu['Sellers'].str.replace(" ","",1)
 
     #Exportando os dados 
-    Dataset_magalu.to_excel("C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Huawei/Downloads/magazine_urls.xlsx", index=False)
+    Dataset_magalu.to_excel(path_download_urls_huawei, index=False)
 
 
 

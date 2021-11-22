@@ -1,4 +1,5 @@
 #Importando bibliotecas
+import os 
 import pandas as pd 
 import requests 
 import time
@@ -12,6 +13,12 @@ from selenium.common.exceptions import WebDriverException
 from tqdm import tqdm
 from urllib.request import HTTPRedirectHandler, urlopen
 import json as JSON
+
+#Pegando a variável
+path_direct = os.getcwd()
+
+path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\B2W.xlsx"
+path_download_urls_huawei = path_download_urls_huawei.replace('\\','/')
 
 header_americanas = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'}
 
@@ -192,7 +199,7 @@ def bw2_final():
     Dataset['Internacional'] = internacional_list
 
     #Exportando o dataset 
-    Dataset.to_excel("C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Huawei/Downloads/b2w_urls.xlsx", index=False)
+    Dataset.to_excel(path_download_urls_huawei, index=False)
     
     
 

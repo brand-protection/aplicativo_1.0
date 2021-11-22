@@ -1,17 +1,18 @@
 #Importando as bibliotecas 
-import pandas as pd 
-import requests 
+import os 
+import pandas as pd  
 import time
 from requests.models import Response 
 from requests_html import HTML
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.common.exceptions import WebDriverException
 from tqdm import tqdm
 from urllib.request import urlopen
-import json as JSON
+
+#Pegando a variável 
+path_direct = os.getcwd()
+
+path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\Mercado_Livre.xlsx"
+path_download_urls_huawei = path_download_urls_huawei.replace('\\','/')
 
 ## MERCADO LIVRE ##
 ml_url_base = []
@@ -147,7 +148,10 @@ def ml_search_attributes(url):
         ml_installment.append(installment)
 
     #Vendedor
-    seller_link = bs.find(class_='ui-pdp-media__action ui-box-component__action')['href']
+    try:
+        seller_link = bs.find(class_='ui-pdp-media__action ui-box-component__action')['href']
+    except:
+        seller_link = "Erro"
 
     try:   
         #Entrando na página do vendedor
@@ -213,7 +217,7 @@ def ml_final():
     dataset = dataset[dataset['Preço'] > 200]  
 
     #Exportando o dataset 
-    dataset.to_excel('C:/Usersvkcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Huawei/Downloads/Mercado_livre_urls.xlsx', index=False)
+    dataset.to_excel(path_download_urls_huawei, index=False)
 
     
 

@@ -1,4 +1,5 @@
 #Importando as bibliotecas 
+import os
 import pandas as pd 
 import requests 
 import time
@@ -12,6 +13,15 @@ from selenium.common.exceptions import WebDriverException
 from tqdm import tqdm
 from urllib.request import urlopen
 import json as JSON
+
+#Pegando a variável 
+path_direct = os.getcwd()
+
+selenium_95 = path_direct + "\Dados\Selenium\chromedriver_95.exe"
+selenium_95 = selenium_95.replace('\\','/')
+
+path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\Magazine_luiza.xlsx"
+path_download_urls_huawei = path_download_urls_huawei.replace('\\','/')
 
 ## EXTRA ##
 extra_urls = []
@@ -40,7 +50,7 @@ def extra_search_urls(url):
     global extra_urls
 
     #Inicializando webdriver 
-    driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_95.exe')
+    driver = webdriver.Chrome(executable_path=selenium_95)
 
     #Inicializando o driver na página 
     driver.get(url)
@@ -61,7 +71,7 @@ def extra_search_urls(url):
 
 def extra_search_attributes(url):
     #Criando o webdriver 
-    driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_94.exe')
+    driver = webdriver.Chrome(executable_path=selenium_95)
     driver.get(url)
 
     #Tempo 
@@ -138,7 +148,7 @@ def final_via_varejo():
     #dataset_extra['Item'] = dataset_extra['Urls'].apply(limpeza)
 
     #Exportando 
-    dataset_extra.to_excel(r"C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Scrappers\Huawei\Downloads\extra.xlsx", index=False)
+    dataset_extra.to_excel(path_download_urls_huawei, index=False)
 
 
 
