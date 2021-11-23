@@ -21,13 +21,9 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 # --------------------------------- VARIAVEIS ---------------------------------- #
 path_direct = os.getcwd()
 
-selenium_94 = path_direct + "\Dados\Selenium\chromedriver_94.exe"
-selenium_94 = selenium_94.replace('\\','/')
+email_path = path_direct + "\Dados\E-mail\motorola_monitoramento.xlsx"
+email_path = email_path.replace('\\','/')
 
-selenium_91 = path_direct + "\Dados\Selenium\chromedriver_91.exe"
-selenium_91 = selenium_91.replace('\\','/')
-
-path_download_urls_huawei = path_direct + "\Huaweu\Downloads"
 
 #Importando função do arquivo de função final do Mercado Livre
 from Scrappers.Brands.Urls_faltantes.Urls_Mercado_livre import final_fuction_ML
@@ -96,7 +92,7 @@ def send_email(brand,date):
     data_filtrada['Action'] = data_filtrada['Action'].str.replace('Send Extrajudicial','Extrajudicial')
         
     #Exportando o dataset para excel para enviar e-mail 
-    data_filtrada.to_excel('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Dados/E-mail/motorola_monitoramento.xlsx', index=False)
+    data_filtrada.to_excel(email_path, index=False)
 
     #Logando no servidor do e-mail e mandando o e-mail para os contatos
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
@@ -111,7 +107,7 @@ def send_email(brand,date):
     msg['To'] = ", ".join(recipients)
 
     part1 = MIMEBase('application','octet-stream')
-    part1.set_payload(open('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Dados/E-mail/motorola_monitoramento.xlsx','rb').read())
+    part1.set_payload(open(email_path,'rb').read())
     encoders.encode_base64(part1)
     part1.add_header('Content-Disposition','attachment;filename="Motorola_monitoramento.xlsx"')
 
@@ -182,7 +178,8 @@ def database_insert_new_data_gopro():
     print("---- Pegando os dados do Daily e conectando com o banco de dados ----")
 
     #Criando o databse 
-    database = sqlite3.connect("C:/Users/kcava/Google Drive/BRAND PROTECTION/Database/Data/Gopro.db")
+    database = sqlite3.connect("G:/.shortcut-targets-by-id/1VAK5JIWTmtamcYtBHQGeL7FVwcki0pRp/BRAND PROTECTION/Database/Data/Gopro.db")
+    
 
     #Criando o cursor 
     c = database.cursor()
@@ -298,8 +295,8 @@ def database_insert_new_data_motorola():
     print("---- Pegando os dados do Daily e conectando com o banco de dados ----")
 
     #Criando o databse 
-    database = sqlite3.connect("C:/Users/kcava/Google Drive/BRAND PROTECTION/Database/Data/Gopro.db")
-
+    database = sqlite3.connect("G:/.shortcut-targets-by-id/1VAK5JIWTmtamcYtBHQGeL7FVwcki0pRp/BRAND PROTECTION/Database/Data/Gopro.db")
+    
     #Criando o cursor 
     c = database.cursor()
 
@@ -433,11 +430,10 @@ def huawei_page():
 #Função que vai determinar a seleção dos marketplaces
 def huawei_choice(marketplace):
     if marketplace == '1':
-        amazon_final()
         #try:
-            #amazon_final()
+            amazon_final()
         #except:
-            #amazon_final()
+            amazon_final()
     elif marketplace == '2':
         try:
             bw2_final()

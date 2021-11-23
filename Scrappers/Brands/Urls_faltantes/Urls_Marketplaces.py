@@ -1,4 +1,5 @@
 #Importando bibliotecas 
+import os
 import pandas as pd
 from pandas.core.frame import DataFrame 
 import requests 
@@ -10,6 +11,12 @@ from selenium.webdriver.chrome.options import Options
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import json as JSON
+
+#Pegando a variável 
+path_direct = os.getcwd()
+
+database_path = path_direct + "\Dados\Selenium\chromedriver_95.exe"
+database_path = database_path.replace('\\','/')
 
 #Configurando as options do selenium
 options = Options()

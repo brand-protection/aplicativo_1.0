@@ -8,6 +8,20 @@ import sqlite3
 from tqdm import tqdm
 import os
 
+#Pegando a variável 
+path_direct = os.getcwd()
+
+database_path = path_direct + r"\Scrappers\Brands\Urls_faltantes\Dados\database.db"
+database_path = database_path.replace('\\','/')
+
+
+urls_path = path_direct + r"\Scrappers\Brands\Urls_faltantes\Dados\Urls.xlsx"
+urls_path = urls_path.replace('\\','/')
+
+
+cadastrar_path = path_direct + r"\Scrappers\Brands\Urls_faltantes\Dados\Cadastrar.xlsx"
+cadastrar_path = cadastrar_path.replace('\\','/')
+
 def categorizacao(a):
     if 'hero-9' in a:
         return 'HERO 9'
@@ -342,7 +356,7 @@ def final_fuction_ML():
     print("--- Pegando os dados e conectando com o banco de dados ----")
 
     #Criando o database 
-    conn = sqlite3.connect('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Brands/Urls_faltantes/Dados/database.db')
+    conn = sqlite3.connect(database_path)
 
     #Criando o cursor
     c = conn.cursor()
@@ -398,8 +412,8 @@ def final_fuction_ML():
         c.execute("INSERT INTO Urls(Links) VALUES('{}')".format(row))
 
     #Exportando o dataset 
-    dataset.to_excel('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Brands/Urls_faltantes/Dados/urls.xlsx', index=False)
-    dataset_cadastrar.to_excel('C:/Users/kcava/OneDrive/Documentos/FIVE C/aplicativo_1.0/Scrappers/Brands/Urls_faltantes/Dados/cadastrar.xlsx', index=False)
+    dataset.to_excel(urls_path, index=False)
+    dataset_cadastrar.to_excel(cadastrar_path, index=False)
 
     print("---- Os dados estão dentro da pasta de E-mail ----")
 
