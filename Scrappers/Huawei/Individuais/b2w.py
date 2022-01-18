@@ -11,14 +11,15 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.common.exceptions import WebDriverException
 from tqdm import tqdm
-from urllib.request import HTTPRedirectHandler, urlopen
-import json as JSON
+
 
 #Pegando a variável
 path_direct = os.getcwd()
 
+
 path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\B2W.xlsx"
 path_download_urls_huawei = path_download_urls_huawei.replace('\\','/')
+
 
 header_americanas = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'}
 
@@ -128,16 +129,13 @@ def search_atributes(url):
 
     #Vendo se a compra é internacional ou não 
     try:
-        internacional = soup.find(class_='international-message__Link-sc-1nfxfiv-1 gWjWQL')
+        internacional = soup.find(class_='badge__TextUI-sc-182j5hr-3 gGplSE').text
         internacional_list.append("Internacional")
     except:
         internacional_list.append("Nacional")
 
-    try:
-        #Vendo se tem o texto de mais ofertas 
-        soup.find(class_='more-offers__Text-sc-15yqej3-0 bourXY').text
-        
-        more_offers_link = 'https://www.americanas.com.br' + soup.find(class_='more-offers__Touchable-sc-15yqej3-2 Yhphg')['href']
+    try:      
+        more_offers_link = 'https://www.americanas.com.br' + soup.find(class_='more-offers__Touchable-sc-15yqej3-2 hYfNEd')['href']
 
         #Esperando 10 segundos para entrar na página 
         time.sleep(10)           
@@ -185,7 +183,7 @@ def bw2_final():
     Dataset = Dataset.drop_duplicates()
 
     #Fazendo a função com as urls dentro do dataset 
-    for url in Dataset['Urls']:
+    for url in tqdm(Dataset['Urls']):
         search_atributes(url)
 
     #Criando Dataset das ofertas 
@@ -196,7 +194,9 @@ def bw2_final():
     Dataset['Preço'] = Price_americanas + Price_ofertas_americanas
     Dataset["Título"] = Title_americanas + Title_ofertas_americanas
     Dataset['Preço_parcelado'] = PP_americanas + PP_ofertas_americanas
-    Dataset['Internacional'] = internacional_list
+    #Dataset['Internacional'] = internacional_list
+
+    print("------------- FINALIZOU AMERICANAS -----------------")
 
     #Exportando o dataset 
     Dataset.to_excel(path_download_urls_huawei, index=False)

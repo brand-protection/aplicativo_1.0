@@ -14,13 +14,24 @@ from tqdm import tqdm
 from urllib.request import urlopen
 import json as JSON
 
+options = Options()
+options.add_argument("--headless")
+options.add_argument('--disable-gpu')
+options.add_argument("--log-level=3")
+options.add_argument('--no-sandbox')
+options.add_experimental_option('useAutomationExtension', False)
+
+
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36"
+options.add_argument('user-agent={0}'.format(user_agent))
+
 header_magazine = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'}
 
 #Pegando a variável
 path_direct = os.getcwd()
 
-selenium_94 = path_direct + "\Dados\Selenium\chromedriver_94.exe"
-selenium_94 = selenium_94.replace('\\','/')
+selenium_96 = path_direct + "\Dados\Selenium\chromedriver_96.exe"
+selenium_96 = selenium_96.replace('\\','/')
 
 path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\Magazine_luiza.xlsx"
 path_download_urls_huawei = path_download_urls_huawei.replace('\\','/')
@@ -51,11 +62,9 @@ def search_links(url):
     global magazine_urls
     
     #Criando o tempo 
-    time.sleep(100)
+    time.sleep(300)
 
-    #Fazendo o requests 
-    driver = webdriver.Chrome(executable_path=selenium_94)
-    
+       
     #Abrimdo a página 
     driver.get(url)
 
@@ -72,16 +81,11 @@ def search_links(url):
     #Limpando todos os links
     magazine_urls = [s for s in magazine_urls if '/p/' in s]
 
-    #Fechando o driver
-    driver.close()
 
 def search_attributes(url):
     #Tempo 
-    time.sleep(100)
+    time.sleep(300)
 
-    #Fazendo o requests 
-    driver = webdriver.Chrome(executable_path=r'C:\Users\kcava\OneDrive\Documentos\FIVE C\aplicativo_1.0\Dados\Selenium\chromedriver_94.exe')
-    
     #Abrimdo a página 
     driver.get(url)
 
@@ -116,11 +120,12 @@ def search_attributes(url):
     except:
         magazine_installments.append("0")
 
-    #Fechando o driver
-    driver.close()
-
 #final 
 def magazine_final():
+    global driver 
+
+    driver = webdriver.Chrome(executable_path=selenium_96, options=options)
+    driver.delete_all_cookies()
 
     #Fazendo a primeira função 
     for url in tqdm(urls_produtos):

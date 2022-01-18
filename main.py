@@ -430,10 +430,7 @@ def huawei_page():
 #Função que vai determinar a seleção dos marketplaces
 def huawei_choice(marketplace):
     if marketplace == '1':
-        #try:
-            amazon_final()
-        #except:
-            amazon_final()
+        amazon_final()        
     elif marketplace == '2':
         try:
             bw2_final()
@@ -455,11 +452,31 @@ def huawei_choice(marketplace):
         except:
             final_via_varejo()
     elif marketplace == "6":
-        amazon_final()
-        bw2_final()
-        ml_final()
-        magazine_final()
-        final_via_varejo()
+        try:
+            amazon_final()
+        except:
+            print("AMAZON FALHOU")
+
+        try:
+            ml_final()
+        except:
+            print('MERCADO LIVRE FALHOU')
+
+        try:
+            final_via_varejo()
+        except:
+            print("VIA VAREJO FALHOU")
+
+        try:
+            bw2_final()
+        except:
+            print("AMERICANAS FALHOU")
+
+        try:
+            magazine_final()
+        except:
+            print("MAGAZINE FALHOU")
+        
     else:
         print("Ocorreu um erro no nome da marca")
 

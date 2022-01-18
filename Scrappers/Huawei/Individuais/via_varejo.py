@@ -1,9 +1,7 @@
 #Importando as bibliotecas 
 import os
 import pandas as pd 
-import requests 
 import time
-from requests.models import Response 
 from requests_html import HTML
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -12,16 +10,29 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.common.exceptions import WebDriverException
 from tqdm import tqdm
 from urllib.request import urlopen
-import json as JSON
+
+#Criando o options do ChromeDriver
+options = Options()
+options.add_argument("--headless")
+options.add_argument('--disable-gpu')
+options.add_argument("--log-level=3")
+options.add_argument('--no-sandbox')
+options.add_experimental_option('useAutomationExtension', False)
+
+
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36"
+options.add_argument('user-agent={0}'.format(user_agent))
+
 
 #Pegando a variável 
 path_direct = os.getcwd()
 
-selenium_95 = path_direct + "\Dados\Selenium\chromedriver_95.exe"
-selenium_95 = selenium_95.replace('\\','/')
+selenium_96 = path_direct + "\Dados\Selenium\chromedriver_96.exe"
+selenium_96 = selenium_96.replace('\\','/')
 
-path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\Magazine_luiza.xlsx"
+path_download_urls_huawei = path_direct + "\Scrappers\Huawei\Downloads\Via_Varejo.xlsx"
 path_download_urls_huawei = path_download_urls_huawei.replace('\\','/')
+
 
 ## EXTRA ##
 extra_urls = []
@@ -47,19 +58,16 @@ urls_products = ['https://www.extra.com.br/huawei-band-6/b',
 ## extra ## 
 def extra_search_urls(url):
     #Colocando a variável como global 
-    global extra_urls
+    global extra_urls    
 
-    #Inicializando webdriver 
-    driver = webdriver.Chrome(executable_path=selenium_95)
+    time.sleep(60)
 
-    #Inicializando o driver na página 
+    #Inicializando o driver na página    
     driver.get(url)
+    body_el = driver.find_element_by_css_selector('body')
+    html_str = body_el.get_attribute('innerHTML')
 
-    #Criando o beautiful usando o driver 
-    bs = BeautifulSoup(driver.page_source, 'html.parser')
-
-    #Fechando o driver
-    driver.close()
+    bs = BeautifulSoup(html_str, 'html.parser')
 
     #Pegando os links 
     for link in bs.find_all("a"):
@@ -70,19 +78,17 @@ def extra_search_urls(url):
 
 
 def extra_search_attributes(url):
-    #Criando o webdriver 
-    driver = webdriver.Chrome(executable_path=selenium_95)
+    #Criando o tempo  
+    time.sleep(120)
+
+    #Inicializando o driver na página 
     driver.get(url)
+    body_el = driver.find_element_by_css_selector('body')
+    html_str = body_el.get_attribute('innerHTML')
 
-    #Tempo 
-    time.sleep(3)
+    bs = BeautifulSoup(html_str, 'html.parser')
 
-    #Fazendo o soup 
-    bs = BeautifulSoup(driver.page_source, 'html.parser')
-
-    #Fechandoo chrome
-    driver.close()
-
+    
     #Fazendo o try do seller 
     try:
         extra_sellers.append(bs.find(class_='text-primary css-fv6pw7 eym5xli0').text)
@@ -122,10 +128,14 @@ def extra_search_attributes(url):
 
 
 def final_via_varejo():
+    global driver
 
-    for url in urls_products:
+    driver = webdriver.Chrome(executable_path=selenium_96, options=options)
+    driver.delete_all_cookies()
+
+    for url in tqdm(urls_products):
         #Fazendo extra função base 
-        extra_search_urls(url)
+        extra_search_urls(url)        
 
     #Fazendo a função para cada url de produto 
     for url in tqdm(extra_urls):
@@ -146,6 +156,8 @@ def final_via_varejo():
 
     #Item
     #dataset_extra['Item'] = dataset_extra['Urls'].apply(limpeza)
+
+    print("------------- FINALIZOU VIA VAREJO -----------------")
 
     #Exportando 
     dataset_extra.to_excel(path_download_urls_huawei, index=False)

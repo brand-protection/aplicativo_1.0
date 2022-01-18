@@ -126,9 +126,6 @@ def ml_search_attributes(url):
     response = urlopen(url)
     html = response.read()
 
-    #TESTE PRINTANDO URL 
-    print(url)
-
     #Criando o soup
     bs = BeautifulSoup(html, 'html.parser')
 
@@ -215,6 +212,8 @@ def ml_final():
 
     #Pegando apenas as informações que tem o preço maior que 200
     dataset = dataset[dataset['Preço'] > 200]  
+
+    print("------------- FINALIZOU MERCADO LIVRE -----------------")
 
     #Exportando o dataset 
     dataset.to_excel(path_download_urls_huawei, index=False)
